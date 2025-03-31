@@ -16,7 +16,6 @@ import requests
 import time
 import logging
 
-# 初始化指标
 QUEUE_RUNNING = Gauge('queue_running_total', 'Number of running tasks')
 QUEUE_PENDING = Gauge('queue_pending_total', 'Number of pending tasks')
 
@@ -48,7 +47,6 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     curl
 
-# Python Evn
 RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu121
 RUN pip install prometheus-client requests
 COPY monitor.py /app/monitor.py
@@ -58,7 +56,6 @@ RUN pip3 install -r /app/ComfyUI/requirements.txt
 
 EXPOSE 8848
 CMD ["sh", "-c", "python3 /app/ComfyUI/main.py --listen 0.0.0.0 --port 8848 & python3 /app/monitor.py"]
-[图片]
 
 4. 获取Prometheus的配置文件
 helm get values monitoring -n default > values.yaml
